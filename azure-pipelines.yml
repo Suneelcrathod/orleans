@@ -1,0 +1,39 @@
+trigger:
+- main
+variables:
+ buildConfiguration: 'Release'
+
+stages:
+  - stage: Build
+    jobs: 
+    - job: Build
+      pool:
+       vmImage: windows-latest
+      steps:
+      - task: UseDotNet@2
+        displayName: 'SDK'
+        inputs:
+          packageType: 'sdk'
+          version: '7.0.100'
+      - task: NuGetToolInstaller@1
+        displayName: 'NuGetTool'
+        inputs:
+          versionSpec: 
+      - task: NuGetCommand@2
+        displayName: 'NuGet Restore'
+        inputs:
+          command: 'restore'
+          restoreSolution: 'Orleans.sln'
+      - task: DotNetCoreCLI@2
+        displayName: 'Dotnet Restore'
+        inputs:
+          command: 'restore'
+          projects: 'Orleans.sln'
+      - task: DotNetCoreCLI@2
+        displayName: 'Dotnet Build projects'
+        inputs:
+          command: 'build'
+          projects: 'Orleans.sln'
+          arguments: '--no -restore --configuration Release'
+      
+      
