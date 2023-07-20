@@ -23,17 +23,17 @@ stages:
         displayName: 'NuGet Restore'
         inputs:
           command: 'restore'
-          restoreSolution: 'Orleans.sln'
+          restoreSolution: '**/*.csproj'
       - task: DotNetCoreCLI@2
         displayName: 'Dotnet Restore'
         inputs:
           command: 'restore'
-          projects: 'Orleans.sln'
+          projects: '**/*.csproj'
       - task: DotNetCoreCLI@2
         displayName: 'Dotnet Build projects'
         inputs:
           command: 'build'
-          projects: 'Orleans.sln'
+          projects: '**/*.csproj'
           arguments: '--no -restore --configuration Release'
       
       
