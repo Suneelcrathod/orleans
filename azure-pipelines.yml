@@ -29,10 +29,8 @@ stages:
         inputs:
           command: 'restore'
           projects: '**/*.sln'
-      - task: MSBuild@1
+      - task: DotNetCoreCLI@2
         inputs:
-          solution: '**/*.sln'
-          configuration: 'Release'
-          msbuildArguments: '--no -restore -- configuration release'
-      
+          command: 'build'
+          projects: '**/*.sln'
       
