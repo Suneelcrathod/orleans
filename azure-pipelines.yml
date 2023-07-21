@@ -30,7 +30,11 @@ stages:
           command: 'restore'
           projects: '**/*.sln'
       - task: DotNetCoreCLI@2
+        displayName: 'Build project'
         inputs:
           command: 'build'
           projects: '**/*.sln'
-      
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'publish'
+          publishWebProjects: true
