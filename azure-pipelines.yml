@@ -23,30 +23,22 @@ stages:
         displayName: 'NuGet Restore'
         inputs:
           command: 'restore'
-          restoreSolution: '**/*.sln'
+          restoreSolution: 'Orleans.sln'
           feedsToUse: 'select'
       - task: DotNetCoreCLI@2
         displayName: 'Dotnet Restore'
         inputs:
           command: 'restore'
-          projects: '**/*.sln'
+          projects: 'Orleans.sln'
           feedsToUse: 'select'
-      - script: dotnet restore
-
-      - script: dotnet build --configuration $(BuildConfiguration)
-        displayName: 'dotnet build $(BuildConfiguration)'
-
       - task: DotNetCoreCLI@2
         inputs:
-          command: publish
-          publishWebProjects: True
-          arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-          zipAfterPublish: True 
-
-      - task: PublishBuildArtifacts@1    
-        displayName: 'Publish Artifact: drop'
+          command: 'build'
+          projects: 'Orleans.sln'
+      - task: DotNetCoreCLI@2
         inputs:
-          PathtoPublish: '$(build.artifactstagingdirectory)'
-
-
-
+          command: 'publish'
+          publishWebProjects: false
+          projects: 'Orleans.sln'
+          zipAfterPublish: true
+     
