@@ -23,20 +23,21 @@ stages:
         displayName: 'NuGet Restore'
         inputs:
           command: 'restore'
-          restoreSolution: '**/*.csproj'
+          restoreSolution: '**/*.sln'
           feedsToUse: 'select'
       - task: DotNetCoreCLI@2
         displayName: 'Dotnet Restore'
         inputs:
           command: 'restore'
-          projects: '**/*.csproj'
+          projects: '**/*.sln'
           feedsToUse: 'select'
       - task: DotNetCoreCLI@2
         displayName: 'Build project'
         inputs:
           command: 'build'
-          projects: '**/*.csproj'
+          projects: '**/*.sln'
       - task: DotNetCoreCLI@2
+        displayName: 'publish project'
         inputs:
           command: 'publish'
           publishWebProjects: false
