@@ -36,6 +36,7 @@ stages:
         inputs:
           command: 'build'
           projects: '**/*.sln'
+          arguments: '--no-restore  --configuration Release'
       - task: DotNetCoreCLI@2
         displayName: 'Publish the project - Release'
         inputs:
