@@ -30,10 +30,20 @@ stages:
           command: 'restore'
           projects: '**/*.sln'
       - task: DotNetCoreCLI@2
+        displayName: 'Build project'
         inputs:
           command: 'build'
           projects: '**/*.sln'
           arguments: '--no-restore --configuration Release'
+      - task: DotNetCoreCLI@2
+        displayName: 'publish'
+        inputs:
+          command: 'publish'
+          publishWebProjects: false
+          projects: '**/*.sln'
+          arguments: '--no-build --configuration Release --output $(Build.ArtifactStagingDirectory)/Release'
+          zipAfterPublish: true
+
       - task: PublishBuildArtifacts@1
         inputs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)'
